@@ -1,33 +1,40 @@
 import java.util.Scanner;
 
+
 public class Main{
-    public static void main(String args[]){
+public static void main(String[] args){
+
+    final byte months = 12;
+    final byte percent = 100;
+    int creditSum = -1;
+    float yearlyPercent = -1;
+    int paybackTime = -1;
+
     System.out.println("Kredīta kalkulātors");
-
-    Scanner myObj = new Scanner(System.in);
-
-    System.out.println("Kredīta summa: ");
-        String KreditSumma = myObj.nextLine();
-        int KreditSum = Integer.parseInt(KreditSumma);
-        do{
-            System.out.println("Laukam jābūt 1000 - 1000000");
+    var scanner = new Scanner(System.in);
+        while(true){
+        System.out.println("Ievadat kredīta summu : ");
+        creditSum = scanner.nextInt();
+        if (creditSum >= 1000 && creditSum <= 1000000)
+        break;
         }
-        while (1000 <= KreditSumma <= 1000000)
+        while(true){
+        System.out.println("Ievadat gada procentu likmi : ");
+        yearlyPercent = scanner.nextFloat();
+        if (yearlyPercent > 0 && yearlyPercent < 20)
+        break;
+        }
+        while(true){
+        System.out.println("Ievadat atmaksas termiņu gados : ");
+        paybackTime = scanner.nextInt();
+        if (paybackTime >= 0 && paybackTime < 30)
+        break;
+        }
+        float c = yearlyPercent / percent / months;
+        int n = paybackTime * months;
 
-    System.out.println("Gada procentu likme: ");
-        float ProcentuLikme = myObj.nextFloat();
-        myObj.nextLine();
-
-    System.out.println("Atmaksas termiņs gados: ");
-        String TerminsGad = myObj.nextLine();
-        int Termins = Integer.parseInt(TerminsGad);
-        myObj.close();
-
-        int Percent = 100;
-        int MonthInYear = 12;
-        int months = Termins * MonthInYear;
-        float rate = ProcentuLikme / Percent / MonthInYear;
-        double P = KreditSum * (rate * Math.pow((1 + rate), months)) / (Math.pow((1 + rate), months) - 1);
-        System.out.println("Kredīts: " + P);
-
-}}
+        double P = creditSum * (c * Math.pow((1 + c), n)) / (Math.pow((1 + c), n) - 1);
+        System.out.println("Lietotāja info : " + "Kredīta summa " + creditSum + " ;==; Procentu likme " + c + " ;==; Atmaksas termiņš " + n);
+        System.out.println("Ikmēneša maksājums : " + Math.round(P));
+}
+}
