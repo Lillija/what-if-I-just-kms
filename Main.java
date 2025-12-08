@@ -9,6 +9,10 @@ public class Main{
     System.out.println("Kredīta summa: ");
         String KreditSumma = myObj.nextLine();
         int KreditSum = Integer.parseInt(KreditSumma);
+        do{
+            System.out.println("Laukam jābūt 1000 - 1000000");
+        }
+        while (1000 <= KreditSumma <= 1000000)
 
     System.out.println("Gada procentu likme: ");
         float ProcentuLikme = myObj.nextFloat();
