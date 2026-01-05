@@ -1,51 +1,63 @@
 import java.util.Scanner;
-import java.lang.Math;
 
-public class MyClass {
+public class Main {
+public static void main(String[] args) {
+final byte MONTH_IN_YEAR = 12;
+final byte PERCENT = 100;
 
-public static void main(String args[]){
+int totalCreditSum = -1;
+float yearlyPercentageRate = -1;
+int years = -1;
 
-System.out.println("Loan calculator");
-
-int kreditSum = 0;
-float procentuLikme = 0.0f;
-int termins = 0;
-
-procentuLikme = readInput("Loan amount: ", 1000, 1000000);
-procentuLikme = readInput("Yearly rate: ", 0, 20);
-termins = readInput("How many years: ", 1, 30);
-
-double monthlyPayment = calculateMortgage(termins, procentuLikme, kreditSum);
-System.out.println("Monthly pay: " + monthlyPayment + " EUR");
-}
-
-public static float readInput(String prompt, int loverLimit, int upperLimit){
 var scanner = new Scanner(System.in);
-float input = -1;
-while (true){
-System.out.println(prompt);
-input = scanner.nextFloat();
 
-if ( input >= 1000 && input <= 1000000){
+System.out.print("|===> Hipotekārā kredīta kalkulators <===|\n");
+
+while (true) {
+System.out.print("Ievadiet kredīta summu: ");
+totalCreditSum = scanner.nextInt();
+
+if (totalCreditSum >= 1_000 && totalCreditSum <= 1_000_000)
 break;
+
+System.out.print("Kredīta summai jābūt robežās no 1'000 līdz 1'000'000\n");
 }
 
-System.out.println("The summ should be within the rules");
+while (true) {
+System.out.print("Ievadiet gada procentu likmi: ");
+yearlyPercentageRate = scanner.nextFloat();
+
+if (yearlyPercentageRate > 0 && yearlyPercentageRate <= 30)
+break;
+
+System.out.print("Procentu likmei jābūt robežās no 0 līdz 30\n");
+}
+
+while (true) {
+System.out.print("Ievadiet periodu gados: ");
+years = scanner.nextInt();
+
+if (years >= 1 && years <= 30)
+break;
+
+System.out.print("Periodam jābūt robežās no 1 līdz 30\n");
+}
+
+// deleģējām kalkulāciju statiskai metodei
+double roundedMonthlyMortgagePayment = calculateMortgage();
+
+// https://www.luminor.lv/lv/privatpersonam/hipotekara-kredita-kalkulators
+// int months = years * MONTH_IN_YEAR;
+// float monthlyRate = yearlyPercentageRate / PERCENT / MONTH_IN_YEAR;
+// double futureValueInterestFactor = Math.pow((1 + monthlyRate), months);
+
+// double monthlyMortgagePayment = totalCreditSum * (monthlyRate * futureValueInterestFactor) / (futureValueInterestFactor - 1);
+// var roundedMonthlyMortgagePayment = (double)Math.round(monthlyMortgagePayment * 100d) / 100d;
+
+System.out.println("Ikmēneša maksājums: " + roundedMonthlyMortgagePayment + " EUR");
+scanner.close();
 }
 }
-
-public static double calculateMortgage(int termins, float procentuLikme, int kreditSum) {
-
-final int Percent = 100;
-final int MonthInYear = 12;
-
-int months = termins * MonthInYear;
-float rate = procentuLikme / Percent / MonthInYear;
-
-double izt1 = rate * Math.pow((1 + rate), months);
-double izt2 = Math.pow((1 + rate), months) - 1;
-double P = kreditSum * (izt1 / izt2);
-return P;
-}
+public static double calculateMortgage(){
 
 }
