@@ -18,13 +18,14 @@ public class Main {
         years = (int) readInput("Ievadiet periodu gados: ", 5, 30);
 
         // deleģējām kalkulāciju statiskai metodei
-        double roundedMonthlyMortgagePayment = calculateMortgage(
-                totalCreditSum,
-                yearlyPercentageRate,
-                years
-        );
+        // double roundedMonthlyMortgagePayment = calculateMortgage(
+        //         totalCreditSum,
+        //         yearlyPercentageRate,
+        //         years
+        // );
+        var pay = new MortgageCalculator(totalCreditSum, yearlyPercentageRate, years);
 
-        System.out.println("Ikmēneša maksājums: " + roundedMonthlyMortgagePayment + " EUR");
+        System.out.println("Ikmēneša maksājums: " + pay.calculate() + " EUR");
         scanner.close();
     }
 
@@ -50,14 +51,16 @@ public class Main {
         var scanner = new Scanner(System.in);
         float input = -1;
         while (true) {
-        System.out.println(prompt);
-        input = scanner.nextFloat();
-        if (input >= lowerLimit && input <= higherLimit) {
-        break;
-        }
-        System.out.println("Incorrect, please try again");
+            System.out.println(prompt);
+            input = scanner.nextFloat();
+            if (input >= lowerLimit && input <= higherLimit) {
+                break;
+            }
+            System.out.println("Incorrect, please try again");
         }
         return input;
         }
+
 }
+
 
