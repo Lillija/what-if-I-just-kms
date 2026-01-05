@@ -13,35 +13,9 @@ public class Main {
 
         System.out.print("|===> Hipotekārā kredīta kalkulators <===|\n");
 
-        while (true) {
-            System.out.print("Ievadiet kredīta summu: ");
-            totalCreditSum = scanner.nextInt();
-
-            if (totalCreditSum >= 1_000 && totalCreditSum <= 1_000_000)
-                break;
-
-            System.out.print("Kredīta summai jābūt robežās no 1'000 līdz 1'000'000\n");
-        }
-
-        while (true) {
-            System.out.print("Ievadiet gada procentu likmi: ");
-            yearlyPercentageRate = scanner.nextFloat();
-
-            if (yearlyPercentageRate > 0 && yearlyPercentageRate <= 30)
-                break;
-
-            System.out.print("Procentu likmei jābūt robežās no 0 līdz 30\n");
-        }
-
-        while (true) {
-            System.out.print("Ievadiet periodu gados: ");
-            years = scanner.nextInt();
-
-            if (years >= 1 && years <= 30)
-                break;
-
-            System.out.print("Periodam jābūt robežās no 1 līdz 30\n");
-        }
+        totalCreditSum = (int) readInput("Ievadiet kredīta summu: ", 1000, 10000);
+        yearlyPercentageRate = readInput("Ievadiet gada procentu likmi: ", 0, 20);
+        years = (int) readInput("Ievadiet periodu gados: ", 5, 30);
 
         // deleģējām kalkulāciju statiskai metodei
         double roundedMonthlyMortgagePayment = calculateMortgage(
@@ -71,5 +45,19 @@ public class Main {
 
         return roundedMonthlyMortgagePayment;
     }
+
+    public static float readInput(String prompt, int lowerLimit, int higherLimit) {
+        var scanner = new Scanner(System.in);
+        float input = -1;
+        while (true) {
+        System.out.println(prompt);
+        input = scanner.nextFloat();
+        if (input >= lowerLimit && input <= higherLimit) {
+        break;
+        }
+        System.out.println("Incorrect, please try again");
+        }
+        return input;
+        }
 }
 
